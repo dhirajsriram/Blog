@@ -5,10 +5,10 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Menu from './common/menu/menu';
 import { Container } from '@material-ui/core';
+import Loader from "./common/loader/loader"
 const Description = React.lazy(() => import('./pages/description'));
 const Listing = React.lazy(() => import('./pages/listing'));
 const FourZeroFour = React.lazy(() => import('./pages/fourzerofour'));
-
 const theme = createMuiTheme({
 	palette: {}
 });
@@ -26,7 +26,7 @@ class App extends Component <{}, AppState>{
 			<ThemeProvider theme={theme}>
 				<Menu />
 				<div className="main-container">
-					<React.Suspense fallback={<div>Loading...</div>}>
+					<React.Suspense fallback={<Loader/>}>
 						<Switch>
 							<Route exact path="/" render={(props:any) => <Container maxWidth="xl"><Listing {...props} /></Container>} />
 							<Route exact path="/:id" render={(props:any) => <Container maxWidth="xl"><Description {...props} /></Container>} /> 

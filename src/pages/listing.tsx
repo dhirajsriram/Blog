@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MaterialTable from 'material-table';
 
 interface description{
@@ -6,44 +6,48 @@ interface description{
 
 export default function MaterialTableDemo(props:description) {
   const [state, setState] = React.useState({
-    columns: [
-      { title: 'Name', field: 'name' },
-      { title: 'Surname', field: 'surname' },
-      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-      {
-        title: 'Birth Place',
-        field: 'birthCity',
-        lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-      },
-    ],
     data: [
-      { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-      {
-        name: 'Zerya Betül',
-        surname: 'Baran',
-        birthYear: 2017,
-        birthCity: 34,
-      },
+      { destination: "Saarbrücker Str. 38, 10405 Berlin",
+      id: "S1000",
+      mode: "sea",
+      name: "T-shirts(Summer2018) from Shanghai to Hamburg",
+      origin: "Shanghai Port",
+      status: "ACTIVE",
+      total: "1000",
+      type: "FCL",
+      userId: "U1000"},
     ],
   });
+
+  useEffect(()=>{
+    fetch('/shipments').then(function(response) {
+        return response.json();
+      }).then(function(json) {
+        let products = json;
+        setState({data :products})
+      }).catch(function(err) {
+        console.log('Fetch problem: ' + err.message);
+      });
+  },[])
 
   return (
     <div style={{ maxWidth: "100%" }}>
     <MaterialTable
       columns={[
-        { title: "Adı", field: "name" },
-        { title: "Soyadı", field: "surname" },
-        { title: "Doğum Yılı", field: "birthYear", type: "numeric" },
-        {
-          title: "Doğum Yeri",
-          field: "birthCity",
-          lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
-        }
+        { title: "id", field: "id" },
+        { title: "name", field: "name" },
+        { title: "userId", field: "userId" },
+        { title: "origin", field: "origin" },
+        { title: "destination", field: "destination" },
+        { title: "mode", field: "mode" },
+        { title: "total", field: "total" },
+        { title: "status", field: "status" },
       ]}
       data={state.data}
       title="Shipments"
       options={{
-        actionsColumnIndex: -1
+        actionsColumnIndex: -1,
+        pageSize:20
       }}
       editable={{
         onRowAdd: newData =>

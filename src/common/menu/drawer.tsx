@@ -25,7 +25,7 @@ export default function TemporaryDrawer() {
     bottom: false,
     right: false,
   });
-  const toggleDrawer = (side:any, open:any) => (event: any) => {
+  const _toggleDrawer = (side:any, open:any) => (event: any) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
@@ -35,15 +35,15 @@ export default function TemporaryDrawer() {
   return (
     <div>
       <IconButton
-						onClick={toggleDrawer('left', true)}
+						onClick={_toggleDrawer('left', true)}
 						edge="start"
 						color="inherit"
 						aria-label="Open drawer"
 					>
 						<MenuIcon />
 					</IconButton>
-      <Drawer open={state.left} onClose={toggleDrawer('left', false)} >
-      <Sidelist classes={classes} toggleDrawer={toggleDrawer} side="left"></Sidelist>
+      <Drawer open={state.left} onClose={_toggleDrawer('left', false)} >
+      <Sidelist classes={classes} toggleDrawer={_toggleDrawer} side="left"></Sidelist>
       </Drawer>
     </div>
   );
