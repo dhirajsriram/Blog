@@ -1,23 +1,11 @@
 import React, { useEffect } from 'react';
 import MaterialTable from 'material-table';
+import Loader from '../common/loader/loader';
+import Status from '../common/status/status';
+import { withRouter } from 'react-router';
 
-interface description{
-}
-
-export default function MaterialTableDemo(props:description) {
-  const [state, setState] = React.useState({
-    data: [
-      { destination: "Saarbrücker Str. 38, 10405 Berlin",
-      id: "S1000",
-      mode: "sea",
-      name: "T-shirts(Summer2018) from Shanghai to Hamburg",
-      origin: "Shanghai Port",
-      status: "ACTIVE",
-      total: "1000",
-      type: "FCL",
-      userId: "U1000"},
-    ],
-  });
+const Listing = (props:any) => {
+  const [state, setState] = React.useState();
 
   useEffect(()=>{
     fetch('/shipments').then(function(response) {
@@ -30,25 +18,32 @@ export default function MaterialTableDemo(props:description) {
       });
   },[])
 
+  const handleRowClick = (e:any,rowData:any) =>{
+    props.setRowData(rowData)
+    props.history.push("/" + rowData.id);
+  }
+
   return (
     <div style={{ maxWidth: "100%" }}>
+      {state ?
     <MaterialTable
       columns={[
-        { title: "id", field: "id" },
+        { title: "id", field: "id" ,editable: 'never'},
         { title: "name", field: "name" },
-        { title: "userId", field: "userId" },
-        { title: "origin", field: "origin" },
-        { title: "destination", field: "destination" },
-        { title: "mode", field: "mode" },
-        { title: "total", field: "total" },
-        { title: "status", field: "status" },
+        { title: "userId", field: "userId",editable: 'never' },
+        { title: "origin", field: "origin",editable: 'never' },
+        { title: "destination", field: "destination",editable: 'never' },
+        { title: "mode", field: "mode",editable: 'never' },
+        { title: "total", field: "total",editable: 'never' },
+        { title: "status", field: "status",editable: 'never', render: rowData => {return(<Status status={rowData.status}/>)}},
       ]}
       data={state.data}
       title="Shipments"
       options={{
         actionsColumnIndex: -1,
-        pageSize:20
+        pageSize:20,
       }}
+      onRowClick={(e,rowData) => handleRowClick(e,rowData)}
       editable={{
         onRowAdd: newData =>
           new Promise(resolve => {
@@ -80,6 +75,9 @@ export default function MaterialTableDemo(props:description) {
           
       }}
     />
+    :<Loader/>}
   </div>
   );
 }
+
+export default withRouter(Listing);

@@ -6,3 +6,18 @@
   margin: auto !important;
   margin-top:10% !important
 }
+.status{
+  padding:10px;
+  color:white;
+  text-align: center;
+  border-radius: 5px;
+}
+.active{
+  background: #0288d1
+}
+.completed{
+  background: #388e3c
+}
+.new{
+  background: #fdd835
+}

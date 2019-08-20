@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function CircularIndeterminate() {
+export default function Loader() {
   const classes = useStyles();
 
   return (
