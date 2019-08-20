@@ -4,6 +4,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Drawer from "./drawer";
+import { Link } from "react-router-dom";
+
 
 const Menu = () => {
   const useStyles = makeStyles((theme: Theme) =>
@@ -25,7 +27,7 @@ const Menu = () => {
         <Toolbar>
           <Drawer />
           <Typography variant="h5" className={classes.title}>
-              Shipments
+              <Link className="default-text" to="/">Shipments</Link>
           </Typography>
         </Toolbar>
       </AppBar>

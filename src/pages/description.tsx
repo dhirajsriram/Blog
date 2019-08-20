@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container, Paper } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import Loader from "../common/loader/loader"
 import Info from "../common/shippment/info";
 import Cargo from "../common/shippment/cargo";
@@ -33,7 +33,7 @@ const Home = (props:any) => {
   
   return (
     <div>
-      <Container>
+      <React.Fragment>
         {console.log(shipment)}
         {shipment && shipment.id ? (
           <Paper className={classes.root}>
@@ -44,7 +44,7 @@ const Home = (props:any) => {
         ) : (
           <Loader />
         )}
-      </Container>
+      </React.Fragment>
     </div>
   );
 };

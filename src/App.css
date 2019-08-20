@@ -12,6 +12,17 @@
   text-align: center;
   border-radius: 5px;
 }
+.MuiTableCell-alignLeft{
+  padding-left: 10px !important;
+  padding-right: 5px !important;
+}
+.listing-page th {
+  text-align: center !important
+}
+.default-text{
+  text-decoration: none;
+  color: inherit
+}
 .active{
   background: #0288d1
 }
