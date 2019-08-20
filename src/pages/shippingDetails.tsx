@@ -13,19 +13,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const Home = (props:any) => {
+const ShippingDetails = (props:any) => {
   const classes = useStyles();
   const [shipment,setShipment]=React.useState(props.row)
   let rowData = props.row.id
   useEffect(()=>{
     if(!rowData){
-      fetch('/shipments').then(function(response) {
+      fetch('/shipments').then((response) => {
         return response.json();
-      }).then(function(json) {
+      }).then((json) => {
         let products = json;
-        let shipment = products.find((shipment:any )=> shipment.id === window.location.pathname.replace("/",""))
-        setShipment(shipment)
-      }).catch(function(err) {
+        if(window){
+        let shipmentElement = products.find((shipment:any )=> shipment.id === window.location.pathname.replace("/shipment",""))
+        setShipment(shipmentElement)
+      }
+      }).catch((err) => {
         console.log('Fetch problem: ' + err.message);
       });
     }
@@ -34,7 +36,6 @@ const Home = (props:any) => {
   return (
     <div>
       <React.Fragment>
-        {console.log(shipment)}
         {shipment && shipment.id ? (
           <Paper className={classes.root}>
           <Info shipment={shipment}></Info>
@@ -49,4 +50,4 @@ const Home = (props:any) => {
   );
 };
 
-export default Home;
+export default ShippingDetails;

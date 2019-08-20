@@ -6,7 +6,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import Menu from "./common/menu/menu";
 import { Container } from "@material-ui/core";
 import Loader from "./common/loader/loader";
-const Description = React.lazy(() => import("./pages/description"));
+const ShippingDetails = React.lazy(() => import("./pages/shippingDetails"));
 const Listing = React.lazy(() => import("./pages/listing"));
 const FourZeroFour = React.lazy(() => import("./pages/fourzerofour"));
 const theme = createMuiTheme({
@@ -25,7 +25,7 @@ class App extends Component<object, State> {
       <ThemeProvider theme={theme}>
         <Menu />
         <div className="main-container">
-          <React.Suspense fallback={<Loader />}>
+          <React.Suspense fallback={<Loader/>}>
             <Switch>
               <Route
                 exact
@@ -38,10 +38,10 @@ class App extends Component<object, State> {
               />
               <Route
                 exact
-                path="/:id"
+                path="/shipment/:id"
                 render={(props: any) => (
                   <Container maxWidth="xl">
-                    <Description row={this.state.row} {...props} />
+                    <ShippingDetails row={this.state.row} {...props} />
                   </Container>
                 )}
               />

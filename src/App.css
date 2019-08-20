@@ -12,12 +12,12 @@
   text-align: center;
   border-radius: 5px;
 }
+.MTableToolbar-actions-147{
+  display: none;
+}
 .MuiTableCell-alignLeft{
   padding-left: 10px !important;
   padding-right: 5px !important;
-}
-.listing-page th {
-  text-align: center !important
 }
 .default-text{
   text-decoration: none;

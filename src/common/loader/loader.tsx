@@ -1,11 +1,13 @@
 import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    progress: {
-      margin: theme.spacing(2),
+    loader: {
+      margin: "auto",
+      display:"block",
+      width:"30%",
+      marginTop:"8%"
     },
   }),
 );
@@ -14,8 +16,6 @@ export default function Loader() {
   const classes = useStyles();
 
   return (
-    <div className="loader">
-      <CircularProgress size={80} className={classes.progress} />
-      </div>
+      <img className={classes.loader} alt="loader" src={require("../../assets/shipping.gif")} />
   );
 }

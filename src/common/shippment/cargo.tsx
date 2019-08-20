@@ -59,7 +59,7 @@ export default function Cargo(props: any) {
         Cargo
       </Typography>
       <Grid container>
-        <Grid xs={6} md={12}>
+        <Grid item xs={6} md={12}>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>

@@ -49,11 +49,13 @@ export default function Shipping(props: any) {
           </Typography>
         </Grid>
         <Grid item md={4} xs={4}>
-          <Typography align="center" variant="subtitle1" component="p">
+          <Typography align="center" variant="subtitle1" component="div">
             <Icon className={classes.mode}>{shipment.mode === "sea" ? "directions_boat" : "flight"}</Icon>
             <hr />
             {shipment.mode.toUpperCase()}
+           
           </Typography>
+          
         </Grid>
         <Grid item md={4} xs={4}>
           <Typography align="center" variant="subtitle1" component="p">
