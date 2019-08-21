@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Paper } from "@material-ui/core";
-import Loader from "../common/loader/loader"
+import Loader from "../common/loader/loader";
 import Info from "../common/shippment/info";
 import Cargo from "../common/shippment/cargo";
 import { makeStyles } from "@material-ui/core";
@@ -12,41 +12,45 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-const ShippingDetails = (props:any) => {
+const ShippingDetails = (props: any) => {
   const classes = useStyles();
-  const [shipment,setShipment]=React.useState(props.row)
-  let rowData = props.row.id
-  useEffect(()=>{
-    if(!rowData){
-      fetch('/shipments').then((response) => {
-        return response.json();
-      }).then((json) => {
-        let products = json;
-        if(window){
-        let shipmentElement = products.find((shipment:any )=> shipment.id === window.location.pathname.replace("/shipment",""))
-        setShipment(shipmentElement)
-      }
-      }).catch((err) => {
-        console.log('Fetch problem: ' + err.message);
-      });
+  const [shipment, setShipment] = React.useState(props.row);
+  let rowData = props.row.id;
+  useEffect(() => {
+    if (!rowData) {
+      fetch(process.env.REACT_APP_API_URL + "/shipments")
+        .then(response => {
+          return response.json();
+        })
+        .then(json => {
+          let products = json;
+          if (window) {
+            let shipmentElement = products.find(
+              (shipment: any) => shipment.id === window.location.pathname.replace("/shipment", "")
+            );
+            setShipment(shipmentElement);
+          }
+        })
+        .catch(err => {
+          console.log("Fetch problem: " + err.message);
+        });
     }
-  },[rowData])
-  
+  }, [rowData]);
+
   return (
-    <div>
-      <React.Fragment>
-        {shipment && shipment.id ? (
+    <React.Fragment>
+      {shipment && shipment.id ? (
+        <div className="shipping-details">
           <Paper className={classes.root}>
-          <Info shipment={shipment}></Info>
-          <Cargo shipment={shipment}></Cargo>
-          <Shipping shipment={shipment}></Shipping>
+            <Info shipment={shipment} />
+            <Cargo shipment={shipment} />
+            <Shipping shipment={shipment} />
           </Paper>
-        ) : (
-          <Loader />
-        )}
-      </React.Fragment>
-    </div>
+        </div>
+      ) : (
+        <Loader />
+      )}
+    </React.Fragment>
   );
 };
 

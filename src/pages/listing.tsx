@@ -15,7 +15,7 @@ const Listing = (props: any) => {
   const classes = useStyles();
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
-    fetch("/shipments")
+    fetch(process.env.REACT_APP_API_URL + "/shipments")
       .then((response) => {
         return response.json();
       })
@@ -39,7 +39,7 @@ const Listing = (props: any) => {
   };
 
   const handleRowChange = (newData: any, oldData: any = null , type:string) => {
-          fetch("/shipments/"+oldData.id, {
+          fetch(process.env.REACT_APP_API_URL + "/shipments/"+oldData.id, {
             method: type === "update" ? "PATCH" : "DELETE",
             headers: {
               'Accept': 'application/json',

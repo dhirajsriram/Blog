@@ -9,7 +9,7 @@ export default function FourZeroFour(props:any) {
       <Typography variant="h6" gutterBottom align="center">
         <WarningIcon className="warning-icon" />
         <br />
-        {props.Error.Error}
+        The page you are looking for cannot be found
       </Typography>
     </div>
   );

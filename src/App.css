@@ -32,3 +32,7 @@
 .new{
   background: #fdd835
 }
+.warning-icon{
+  color:red;
+  font-size:4rem !important
+}
