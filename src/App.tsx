@@ -3,9 +3,10 @@ import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import Menu from "./common/menu/menu";
 import { Container } from "@material-ui/core";
 import Loader from "./common/loader/loader";
+
+const Menu = React.lazy(() => import("./common/menu/menu"));
 const ShippingDetails = React.lazy(() => import("./pages/shippingDetails"));
 const Listing = React.lazy(() => import("./pages/listing"));
 const FourZeroFour = React.lazy(() => import("./pages/fourzerofour"));
@@ -23,16 +24,16 @@ class App extends Component<object, State> {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <Menu />
-        <div className="main-container">
-          <React.Suspense fallback={<Loader/>}>
+        <React.Suspense fallback={<Loader />}>
+          <Menu />
+          <div className="main-container">
             <Switch>
               <Route
                 exact
                 path="/"
                 render={(props: any) => (
                   <Container maxWidth="xl">
-                    <Listing {...props} setRowData={this._setRowData}/>
+                    <Listing {...props} setRowData={this._setRowData} />
                   </Container>
                 )}
               />
@@ -53,8 +54,8 @@ class App extends Component<object, State> {
                 )}
               />
             </Switch>
-          </React.Suspense>
-        </div>
+          </div>
+        </React.Suspense>
       </ThemeProvider>
     );
   }

@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 import Loader from "../common/loader/loader";
-import Status from "../common/status/status";
 import { withRouter } from "react-router";
-import { Icon, makeStyles } from "@material-ui/core";
+import { Icon, makeStyles, Typography } from "@material-ui/core";
+
+const Status = React.lazy(() => import("../common/status/status"));
+
 const useStyles = makeStyles(theme => ({
   modeIcon: {
     textAlign: "center"
+  },
+  title: {
+    fontWeight: "bold"
   }
 }));
 
@@ -16,14 +21,14 @@ const Listing = (props: any) => {
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
     fetch(process.env.REACT_APP_API_URL + "/shipments")
-      .then((response) => {
+      .then(response => {
         return response.json();
       })
-      .then((json) => {
+      .then(json => {
         let products = json;
         setState({ data: products });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log("Fetch problem: " + err.message);
       });
     const handleResize = () => setWidth(window.innerWidth);
@@ -38,17 +43,15 @@ const Listing = (props: any) => {
     props.history.push("/shipment/" + rowData.id);
   };
 
-  const handleRowChange = (newData: any, oldData: any = null , type:string) => {
-          fetch(process.env.REACT_APP_API_URL + "/shipments/"+oldData.id, {
-            method: type === "update" ? "PATCH" : "DELETE",
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: type === "update" ?JSON.stringify(newData) : null
-          })
-          .then( (response) => { 
-          });
+  const handleRowChange = (newData: any, oldData: any = null, type: string) => {
+    fetch(process.env.REACT_APP_API_URL + "/shipments/" + oldData.id, {
+      method: type === "update" ? "PATCH" : "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: type === "update" ? JSON.stringify(newData) : null
+    }).then(response => {});
   };
 
   return (
@@ -83,7 +86,11 @@ const Listing = (props: any) => {
             { title: "TOTAL", field: "total", editable: "onAdd", hidden: width < 480 ? true : false }
           ]}
           data={state.data}
-          title="Shipments"
+          title={
+            <Typography className={classes.title} variant="h5" component="p">
+              Shipments
+            </Typography>
+          }
           options={{
             actionsColumnIndex: -1,
             pageSize: 20
@@ -93,7 +100,7 @@ const Listing = (props: any) => {
             onRowUpdate: (newData, oldData: any) =>
               new Promise(resolve => {
                 setTimeout(() => {
-                  handleRowChange(newData, oldData,"update");
+                  handleRowChange(newData, oldData, "update");
                   resolve();
                   const data = [...state.data];
                   data[data.indexOf(oldData)] = newData;
@@ -106,7 +113,7 @@ const Listing = (props: any) => {
                   resolve();
                   const data = [...state.data];
                   data.splice(data.indexOf(oldData), 1);
-                  handleRowChange(null,oldData,"delete");
+                  handleRowChange(null, oldData, "delete");
                   setState({ ...state, data });
                 }, 600);
               })

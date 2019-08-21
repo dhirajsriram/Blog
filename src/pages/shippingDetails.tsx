@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { Paper } from "@material-ui/core";
 import Loader from "../common/loader/loader";
-import Info from "../common/shippment/info";
-import Cargo from "../common/shippment/cargo";
 import { makeStyles } from "@material-ui/core";
-import Shipping from "../common/shippment/shipping";
+
+const Shipping = React.lazy(() => import("../common/shippment/shipping"));
+const Cargo = React.lazy(() => import("../common/shippment/cargo"));
+const Info = React.lazy(() => import("../common/shippment/info"));
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +28,7 @@ const ShippingDetails = (props: any) => {
           let products = json;
           if (window) {
             let shipmentElement = products.find(
-              (shipment: any) => shipment.id === window.location.pathname.replace("/shipment", "")
+              (shipment: any) => shipment.id === window.location.pathname.replace("/shipment/", "")
             );
             setShipment(shipmentElement);
           }
