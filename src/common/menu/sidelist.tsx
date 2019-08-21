@@ -27,7 +27,7 @@ const sideList = (props: any) => (
     <Divider />
     <Divider />
     <List>
-      <a className="default-text" href={"https://github.com/dhirajsriram/Geocoder"}>
+      <a className="default-text" href={"https://github.com/freight-hub/freighthub-frontend-challenge/blob/master/README.md#use-cases"}>
         <ListItem button>
           <ListItemIcon>
             <InfoIcon />
