@@ -20,7 +20,7 @@ const Listing = (props: any) => {
   const classes = useStyles();
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_URL + "/shipments")
+    fetch(process.env.REACT_APP_API_URL + "/blog")
       .then(response => {
         return response.json();
       })
@@ -44,7 +44,7 @@ const Listing = (props: any) => {
   };
 
   const handleRowChange = (newData: any, oldData: any = null, type: string) => {
-    fetch(process.env.REACT_APP_API_URL + "/shipments/" + oldData.id, {
+    fetch(process.env.REACT_APP_API_URL + "/blog/" + oldData.id, {
       method: type === "update" ? "PATCH" : "DELETE",
       headers: {
         Accept: "application/json",
@@ -88,7 +88,7 @@ const Listing = (props: any) => {
           data={state.data}
           title={
             <Typography className={classes.title} variant="h5" component="p">
-              Shipments
+              blog
             </Typography>
           }
           options={{

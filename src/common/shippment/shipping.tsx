@@ -41,9 +41,6 @@ export default function Shipping(props: any) {
       </Typography>
       <Grid container justify="space-between" className={classes.shipping}>
         <Grid item md={4} xs={4}>
-          <Typography align="center" variant="subtitle1" component="p">
-            <img src={require("../../assets/box.png")} alt="box" className={classes.image} />
-          </Typography>
           <Typography className={classes.location} align="center" variant="subtitle1" component="p">
             {shipment.origin}
           </Typography>
@@ -58,9 +55,6 @@ export default function Shipping(props: any) {
           
         </Grid>
         <Grid item md={4} xs={4}>
-          <Typography align="center" variant="subtitle1" component="p">
-            <img src={require("../../assets/location.png")} alt="box" className={classes.image} />
-          </Typography>
           <Typography className={classes.location} align="center" variant="subtitle1" component="p">
             {shipment.destination}
           </Typography>

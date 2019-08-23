@@ -20,7 +20,7 @@ const ShippingDetails = (props: any) => {
   let rowData = props.row.id;
   useEffect(() => {
     if (!rowData) {
-      fetch(process.env.REACT_APP_API_URL + "/shipments")
+      fetch(process.env.REACT_APP_API_URL + "/blog")
         .then(response => {
           return response.json();
         })

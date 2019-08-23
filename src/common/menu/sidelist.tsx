@@ -1,42 +1,51 @@
 import React from "react";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import HomeIcon from "@material-ui/icons/Home";
-import InfoIcon from "@material-ui/icons/Info";
-import { Link } from "react-router-dom";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import {
+  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Theme,
+  createStyles
+} from "@material-ui/core";
+import MailIcon from "@material-ui/icons/Mail";
+import { makeStyles } from "@material-ui/styles";
 
-const sideList = (props: any) => (
-  <div
-    className={props.classes.list}
-    role="presentation"
-    onClick={props.toggleDrawer(props.side, false)}
-    onKeyDown={props.toggleDrawer(props.side, false)}>
-    <List>
-      <Link to="/" className="default-text">
-        <ListItem button>
-          <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText primary={"Home"} />
-        </ListItem>
-      </Link>
-    </List>
-    <Divider />
-    <Divider />
-    <List>
-      <a className="default-text" href={"https://github.com/freight-hub/freighthub-frontend-challenge/blob/master/README.md#use-cases"}>
-        <ListItem button>
-          <ListItemIcon>
-            <InfoIcon />
-          </ListItemIcon>
-          <ListItemText primary={"About"} />
-        </ListItem>
-      </a>
-    </List>
-  </div>
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    toolbar: theme.mixins.toolbar,
+    drawerPaper: {
+      width: drawerWidth
+    }
+  })
 );
 
-export default sideList;
+export default function Sidelist(props: any){
+  const classes = useStyles();
+  return(
+  <div>
+    <div className={classes.toolbar} />
+    <Divider />
+    <List>
+      {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+        <ListItem button key={text}>
+          <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+          <ListItemText primary={text} />
+        </ListItem>
+      ))}
+    </List>
+    <Divider />
+    <List>
+      {["All mail", "Trash", "Spam"].map((text, index) => (
+        <ListItem button key={text}>
+          <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+          <ListItemText primary={text} />
+        </ListItem>
+      ))}
+    </List>
+  </div>)
+}
+
