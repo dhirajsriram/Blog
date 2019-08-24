@@ -1,127 +1,32 @@
 import React, { useEffect, useState } from "react";
-import MaterialTable from "material-table";
-import Loader from "../common/loader/loader";
 import { withRouter } from "react-router";
-import { Icon, makeStyles, Typography } from "@material-ui/core";
-
-const Status = React.lazy(() => import("../common/status/status"));
-
-const useStyles = makeStyles(theme => ({
-  modeIcon: {
-    textAlign: "center"
-  },
-  title: {
-    fontWeight: "bold"
-  }
-}));
+import Blog from "../common/blog/blog";
 
 const Listing = (props: any) => {
   const [state, setState] = useState();
-  const classes = useStyles();
-  const [width, setWidth] = useState(window.innerWidth);
+  const url =
+    "https://content.googleapis.com/blogger/v3/blogs/3213900/posts?fetchBodies=true&fetchImages=true&maxResults=40&orderBy=published&key=AIzaSyCnz169tp7MAkt0ef4AF4Xc_mBNFpU-aas";
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_URL + "/blog")
+    fetch(url)
       .then(response => {
         return response.json();
       })
       .then(json => {
-        let products = json;
-        setState({ data: products });
+        let blogs = json;
+        setState({ data: blogs });
       })
       .catch(err => {
         console.log("Fetch problem: " + err.message);
       });
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
   }, []);
-
-  const handleRowClick = (e: any, rowData: any) => {
-    props.setRowData(rowData);
-    props.history.push("/shipment/" + rowData.id);
-  };
-
-  const handleRowChange = (newData: any, oldData: any = null, type: string) => {
-    fetch(process.env.REACT_APP_API_URL + "/blog/" + oldData.id, {
-      method: type === "update" ? "PATCH" : "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: type === "update" ? JSON.stringify(newData) : null
-    }).then(response => {});
-  };
 
   return (
     <div className="listing-page">
-      {state ? (
-        <MaterialTable
-          columns={[
-            {
-              title: "STATUS",
-              field: "status",
-              editable: "onAdd",
-              render: rowData => {
-                return <Status status={rowData && rowData.status} />;
-              }
-            },
-            { title: "ID", field: "id", editable: "onAdd", hidden: width < 480 ? true : false },
-            { title: "NAME", field: "name" },
-            { title: "USER-ID", field: "userId", editable: "onAdd", hidden: width < 480 ? true : false },
-            { title: "ORIGIN", field: "origin", editable: "onAdd", hidden: width < 480 ? true : false },
-            { title: "DESTINATION", field: "destination", editable: "onAdd", hidden: width < 480 ? true : false },
-            {
-              title: "MODE",
-              field: "mode",
-              editable: "onAdd",
-              render: rowData => {
-                return (
-                  <Icon className={classes.modeIcon}>{rowData.mode === "sea" ? "directions_boat" : "flight"}</Icon>
-                );
-              },
-              hidden: width < 480 ? true : false
-            },
-            { title: "TOTAL", field: "total", editable: "onAdd", hidden: width < 480 ? true : false }
-          ]}
-          data={state.data}
-          title={
-            <Typography className={classes.title} variant="h5" component="p">
-              blog
-            </Typography>
-          }
-          options={{
-            actionsColumnIndex: -1,
-            pageSize: 20
-          }}
-          onRowClick={(e, rowData) => handleRowClick(e, rowData)}
-          editable={{
-            onRowUpdate: (newData, oldData: any) =>
-              new Promise(resolve => {
-                setTimeout(() => {
-                  handleRowChange(newData, oldData, "update");
-                  resolve();
-                  const data = [...state.data];
-                  data[data.indexOf(oldData)] = newData;
-                  setState({ ...state, data });
-                }, 600);
-              }),
-            onRowDelete: oldData =>
-              new Promise(resolve => {
-                setTimeout(() => {
-                  resolve();
-                  const data = [...state.data];
-                  data.splice(data.indexOf(oldData), 1);
-                  handleRowChange(null, oldData, "delete");
-                  setState({ ...state, data });
-                }, 600);
-              })
-          }}
-        />
-      ) : (
-        <Loader />
-      )}
+      {(state && state.data && state.data.items.map((item:object,index:string)=>{
+        return(
+          <Blog item={item} key={index}/>
+        )
+      }) )}
     </div>
   );
 };

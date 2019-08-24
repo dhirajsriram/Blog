@@ -7,7 +7,8 @@ import {
   ListItemIcon,
   ListItemText,
   Theme,
-  createStyles
+  createStyles,
+  Typography,
 } from "@material-ui/core";
 import MailIcon from "@material-ui/icons/Mail";
 import { makeStyles } from "@material-ui/styles";
@@ -16,7 +17,17 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    toolbar: theme.mixins.toolbar,
+    toolbar: {
+      padding:16
+    },
+    heading:{
+      fontWeight:"bold"
+    },
+    logo:{
+      width:30,
+      verticalAlign:"top",
+      marginRight:24
+    },
     drawerPaper: {
       width: drawerWidth
     }
@@ -27,7 +38,9 @@ export default function Sidelist(props: any){
   const classes = useStyles();
   return(
   <div>
-    <div className={classes.toolbar} />
+    <div className={classes.toolbar} >
+      <img alt="logo" src={require("../../assets/logo.png")} className={classes.logo}/><Typography className={classes.heading} variant="h5" component="span">Blog</Typography>
+    </div>
     <Divider />
     <List>
       {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (

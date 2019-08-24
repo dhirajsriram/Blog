@@ -1,38 +1,50 @@
 .main-container{
-  margin-top:30px;
+  background:#e8eaf6
 }
-.MuiCircularProgress-root{
+
+@media only screen and (min-width: 768px) {
+  .main-container {
+    width: calc(100% - 240px);
+    margin-left: 240px;
+  }
+}
+
+.listing-page{
+  padding:24px
+}
+
+.MuiCircularProgress-root {
   display: block !important;
   margin: auto !important;
-  margin-top:10% !important
+  margin-top: 10% !important;
 }
-.status{
-  padding:10px;
-  color:white;
+.status {
+  padding: 10px;
+  color: white;
   text-align: center;
   border-radius: 5px;
 }
-.MTableToolbar-actions-147{
+.MTableToolbar-actions-147 {
   display: none;
 }
-.MuiTableCell-alignLeft{
+.MuiTableCell-alignLeft {
   padding-left: 10px !important;
   padding-right: 5px !important;
 }
-.default-text{
+.default-text {
   text-decoration: none;
-  color: inherit
+  color: inherit;
 }
-.active{
-  background: #0288d1
+.active {
+  background: #0288d1;
 }
-.completed{
-  background: #388e3c
+.completed {
+  background: #388e3c;
 }
-.new{
-  background: #fdd835
+.new {
+  background: #fdd835;
 }
-.warning-icon{
-  color:red;
-  font-size:4rem !important
+.warning-icon {
+  color: red;
+  font-size: 4rem !important;
 }

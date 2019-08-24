@@ -14,6 +14,7 @@ const theme = createMuiTheme({
   palette: {}
 });
 
+
 const initialState = { row: {} };
 type State = Readonly<typeof initialState>;
 class App extends Component<object, State> {
@@ -32,9 +33,7 @@ class App extends Component<object, State> {
                 exact
                 path="/"
                 render={(props: any) => (
-                  <Container maxWidth="xl">
                     <Listing {...props} setRowData={this._setRowData} />
-                  </Container>
                 )}
               />
               <Route

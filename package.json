@@ -28,7 +28,7 @@
     "deleteBuild": "rimraf build",
     "serveBuild": "serve -s build",
     "server": "json-server ./freighthub-frontend-challenge/db.json",
-    "start": "set REACT_APP_API_URL=http://localhost:3000&& set NODE_ENV=development&& set PORT=3001 && react-scripts start",
+    "start": "set REACT_APP_API_URL=http://localhost:3000&& set NODE_ENV=development&& react-scripts start",
     "build": "set REACT_APP_API_URL=http://localhost:3000&& set NODE_ENV=production&& react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
