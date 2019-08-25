@@ -61,6 +61,12 @@ const Menu = (props:any) => {
     },
   }));
   const classes = useStyles();
+  const submitSearch = (e:any) =>{
+    e.preventDefault();
+    e.persist();
+    props.setSearch(e.target[0].value)
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
@@ -70,6 +76,7 @@ const Menu = (props:any) => {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
+            <form onSubmit={submitSearch}>
             <InputBase
               placeholder="Search…"
               classes={{
@@ -78,6 +85,7 @@ const Menu = (props:any) => {
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
+            </form>
           </div>
         </Toolbar>
       </AppBar>

@@ -11,7 +11,10 @@ const Listing = (props: any) => {
   const [state, setState] = useState();
   const [offset, setOffset] = useState(0);
   const [categories, setCategories]: any[] = useState([]);
-  const category: string = window.location.pathname.indexOf("category") > 0 ? window.location.pathname.replace("/category/", "") : ""
+  const category: string = window.location.pathname.indexOf("category") > 0 ? window.location.pathname.replace("/category/", "") : "";
+  let urlParams = new URLSearchParams(window.location.search);
+  const search:any = urlParams.has('search') ? urlParams.get('search') : "";
+
   const url =
     "https://content.googleapis.com/blogger/v3/blogs/15045980/posts?labels=GTAC&fetchBodies=true&fetchImages=true&maxResults=500&orderBy=published&key=AIzaSyCnz169tp7MAkt0ef4AF4Xc_mBNFpU-aas";
   
@@ -47,11 +50,19 @@ const Listing = (props: any) => {
         } else {
           setState({ data: newItem })
         }
+        if (search !== "") {
+          let searchSorted = newItem.filter((blog: any) => {
+            return blog.title.includes(search)
+          })
+          setState({ data: searchSorted })
+        } else {
+          setState({ data: newItem })
+        }
       })
       .catch(err => {
         console.log("Fetch problem: " + err.message);
       });
-  }, [category,setPropsCategories]);
+  }, [category,search,setPropsCategories]);
 
   const deleteBlog = (id: string) => {
     var index = state.data.indexOf(state.data.find((item: any) => item.id === id))
