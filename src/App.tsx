@@ -4,11 +4,10 @@ import { Route, Switch, RouteComponentProps, withRouter } from "react-router-dom
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import Loader from "./common/loader/loader";
+import routes from "./routes"
 
 const Menu = React.lazy(() => import("./common/menu/menu"));
-const Description = React.lazy(() => import("./pages/description"));
-const Listing = React.lazy(() => import("./pages/listing"));
-const FourZeroFour = React.lazy(() => import("./pages/fourzerofour"));
+
 const theme = createMuiTheme({
   palette: {}
 });
@@ -20,7 +19,7 @@ type PropsType = RouteComponentProps<PathParamsType> & {
   someString: string,
 }
 
-const initialState = { categoryArr: [] , search : ""};
+const initialState = { categoryArr: [], search: "" };
 type State = Readonly<typeof initialState>;
 class App extends Component<PropsType> {
   readonly state: State = initialState;
@@ -28,43 +27,26 @@ class App extends Component<PropsType> {
     this.setState({ categoryArr: categoryArr });
   };
 
-  _setSearchTerm = (search: string) =>{
-    this.props.history.push("/?search="+search)
+  _setSearchTerm = (search: string) => {
+    this.props.history.push("/?search=" + search)
     this.setState({ search });
   }
   render() {
     return (
       <ThemeProvider theme={theme}>
         <React.Suspense fallback={<Loader />}>
-          <Menu categoryArr={this.state.categoryArr} setSearch={this._setSearchTerm}/>
+          <Menu categoryArr={this.state.categoryArr} setSearch={this._setSearchTerm} />
           <div className="main-container">
             <Switch>
-              <Route
-                exact
-                path="/"
-                render={(props: any) => (
-                    <Listing search={this.state.search} setCategories={this._setCategories} {...props} />
-                )}
-              />
-               <Route
-                exact
-                path="/category/:id"
-                render={(props: any) => (
-                    <Listing setCategories={this._setCategories} {...props} />
-                )}
-              />
-              <Route
-                exact
-                path="/blog/:id"
-                render={(props: any) => (
-                    <Description {...props} />
-                )}
-              />
-              <Route
-                render={(props: any) => (
-                    <FourZeroFour {...props} />
-                )}
-              />
+              {routes.map((route:any) => (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  render={(props: any) => (
+                    <route.component search={this.state.search} setCategories={this._setCategories} {...props} />
+                  )}
+                />
+              ))}
             </Switch>
           </div>
         </React.Suspense>

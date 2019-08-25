@@ -14,10 +14,11 @@ const Listing = (props: any) => {
   const category: string = window.location.pathname.indexOf("category") > 0 ? window.location.pathname.replace("/category/", "") : "";
   let urlParams = new URLSearchParams(window.location.search);
   const search:any = urlParams.has('search') ? urlParams.get('search') : "";
-
+  const apiUrl = "https://content.googleapis.com/blogger/v3/blogs/15045980"
+  const key = "AIzaSyCnz169tp7MAkt0ef4AF4Xc_mBNFpU-aas";
+  console.log(process.env)
   const url =
-    "https://content.googleapis.com/blogger/v3/blogs/15045980/posts?labels=GTAC&fetchBodies=true&fetchImages=true&maxResults=500&orderBy=published&key=AIzaSyCnz169tp7MAkt0ef4AF4Xc_mBNFpU-aas";
-  
+  apiUrl + "/posts?labels=GTAC&fetchBodies=true&fetchImages=true&maxResults=500&orderBy=published&key="+key;
     let setPropsCategories = props.setCategories
     useEffect(() => {
     const tempCategories: any[] = []
@@ -42,27 +43,27 @@ const Listing = (props: any) => {
         })
         setCategories(Array.from(new Set(tempCategories)))
         setPropsCategories(Array.from(new Set(tempCategories)));
-        if (category !== "") {
-          let categorySorted = newItem.filter((blog: any) => {
-            return blog.labels.includes(decodeURIComponent(category))
-          })
-          setState({ data: categorySorted })
-        } else {
-          setState({ data: newItem })
+    
+        if(category || search){
+         let value = category ? category : search
+         let property = category ? "labels" : "title"
+         setData(value,property,newItem)
         }
-        if (search !== "") {
-          let searchSorted = newItem.filter((blog: any) => {
-            return blog.title.includes(search)
-          })
-          setState({ data: searchSorted })
-        } else {
+        else {
           setState({ data: newItem })
         }
       })
       .catch(err => {
         console.log("Fetch problem: " + err.message);
       });
-  }, [category,search,setPropsCategories]);
+  }, [category,search,setPropsCategories,url]);
+
+  const setData = (value:string, property:string ,newItem:any) =>{
+      let categorySorted = newItem.filter((blog: any) => {
+        return blog[property].includes(decodeURIComponent(value))
+      })
+      setState({ data: categorySorted })
+  }
 
   const deleteBlog = (id: string) => {
     var index = state.data.indexOf(state.data.find((item: any) => item.id === id))

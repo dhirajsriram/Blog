@@ -18,39 +18,8 @@
   padding-bottom: 24px;
 }
 
-.MuiCircularProgress-root {
-  display: block !important;
-  margin: auto !important;
-  margin-top: 10% !important;
-}
-.status {
-  padding: 10px;
-  color: white;
-  text-align: center;
-  border-radius: 5px;
-}
-.MTableToolbar-actions-147 {
-  display: none;
-}
-.MuiTableCell-alignLeft {
-  padding-left: 10px !important;
-  padding-right: 5px !important;
-}
 .default-text {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
-}
-.active {
-  background: #0288d1;
-}
-.completed {
-  background: #388e3c;
-}
-.new {
-  background: #fdd835;
-}
-.warning-icon {
-  color: red;
-  font-size: 4rem !important;
 }
