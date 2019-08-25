@@ -43,7 +43,6 @@ const Dropdown = (props:any) => {
 
   return (
     <form className={classes.root} autoComplete="off">
-      {console.log(values.author)}
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="author">Author</InputLabel>
         <Select

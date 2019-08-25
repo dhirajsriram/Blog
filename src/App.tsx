@@ -14,29 +14,32 @@ const theme = createMuiTheme({
 });
 
 
-const initialState = { row: {} };
+const initialState = { categoryArr: [] };
 type State = Readonly<typeof initialState>;
 class App extends Component<object, State> {
   readonly state: State = initialState;
+  _setCategories = (categoryArr: any) => {
+    this.setState({ categoryArr: categoryArr });
+  };
   render() {
     return (
       <ThemeProvider theme={theme}>
         <React.Suspense fallback={<Loader />}>
-          <Menu />
+          <Menu categoryArr={this.state.categoryArr}/>
           <div className="main-container">
             <Switch>
               <Route
                 exact
                 path="/"
                 render={(props: any) => (
-                    <Listing {...props} />
+                    <Listing setCategories={this._setCategories} {...props} />
                 )}
               />
                <Route
                 exact
                 path="/category/:id"
                 render={(props: any) => (
-                    <Listing {...props} />
+                    <Listing setCategories={this._setCategories} {...props} />
                 )}
               />
               <Route

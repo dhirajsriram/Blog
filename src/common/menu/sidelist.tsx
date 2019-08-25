@@ -1,5 +1,4 @@
 import React from "react";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import {
   Divider,
   List,
@@ -8,9 +7,8 @@ import {
   ListItemText,
   Theme,
   createStyles,
-  Typography,
+  Icon,
 } from "@material-ui/core";
-import MailIcon from "@material-ui/icons/Mail";
 import { makeStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 
@@ -19,15 +17,17 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     toolbar: {
-      padding:16
-    },
-    heading:{
-      fontWeight:"bold"
+      padding:8
     },
     logo:{
-      width:30,
+      width:"90%",
       verticalAlign:"top",
-      marginRight:24
+      display:"block",
+      margin:"auto",
+      '&:hover': {
+        transition: "width 0.25s",
+        width:"100%"
+      }
     },
     drawerPaper: {
       width: drawerWidth
@@ -40,25 +40,33 @@ export default function Sidelist(props: any){
   return(
   <div>
     <div className={classes.toolbar} >
-      <Link to="/" className="default-text"> <img alt="logo" src={require("../../assets/logo.png")} className={classes.logo}/><Typography className={classes.heading} variant="h5" component="span">Blog</Typography></Link>
+      <Link to="/" className="default-text"> <img alt="logo" src={require("../../assets/logo.png")} className={classes.logo}/></Link>
     </div>
-    <Divider />
+    {props.categoryArr && props.categoryArr.length > 0 && <Divider />}
     <List>
-      {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-        <ListItem button key={text}>
-          <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-          <ListItemText primary={text} />
+      {props.categoryArr && props.categoryArr.map((category:string, index:any) => (
+        <Link key={index} className="default-text" to={"/category/" + category}>
+        <ListItem button>
+          <ListItemIcon><Icon>person</Icon></ListItemIcon>
+          <ListItemText primary={category} />
         </ListItem>
+        </Link>
       ))}
     </List>
     <Divider />
     <List>
-      {["All mail", "Trash", "Spam"].map((text, index) => (
-        <ListItem button key={text}>
-          <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-          <ListItemText primary={text} />
+    <a className="default-text" href="https://developers.google.com/blogger/">
+        <ListItem button>
+          <ListItemIcon><Icon>view_quilt</Icon></ListItemIcon>
+          <ListItemText primary="Blogger" />
         </ListItem>
-      ))}
+        </a>
+    <a className="default-text" href="https://github.com/dhirajsriram/Blog">
+        <ListItem button>
+          <ListItemIcon><Icon>info</Icon></ListItemIcon>
+          <ListItemText primary="About" />
+        </ListItem>
+    </a>
     </List>
   </div>)
 }

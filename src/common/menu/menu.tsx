@@ -8,7 +8,7 @@ import InputBase from "@material-ui/core/InputBase";
 
 const drawerWidth = 240;
 
-const Menu = () => {
+const Menu = (props:any) => {
   const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -65,7 +65,7 @@ const Menu = () => {
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
-          <Drawer />
+          <Drawer categoryArr={props.categoryArr}/>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

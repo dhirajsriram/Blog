@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router";
 import Blog from "../common/blog/blog";
 import Pagination from "material-ui-flat-pagination";
-import { Link } from "react-router-dom";
 import Loader from "../common/loader/loader";
 import Dropdown from "../common/dropdown/dropdown";
 import { Grid } from "@material-ui/core";
@@ -15,7 +14,9 @@ const Listing = (props: any) => {
   const category: string = window.location.pathname.indexOf("category") > 0 ? window.location.pathname.replace("/category/", "") : ""
   const url =
     "https://content.googleapis.com/blogger/v3/blogs/15045980/posts?labels=GTAC&fetchBodies=true&fetchImages=true&maxResults=500&orderBy=published&key=AIzaSyCnz169tp7MAkt0ef4AF4Xc_mBNFpU-aas";
-  useEffect(() => {
+  
+    let setPropsCategories = props.setCategories
+    useEffect(() => {
     const tempCategories: any[] = []
     setState({ data: [] })
     fetch(url)
@@ -37,6 +38,7 @@ const Listing = (props: any) => {
           return { ...blog, label: blog.labels[0] }
         })
         setCategories(Array.from(new Set(tempCategories)))
+        setPropsCategories(Array.from(new Set(tempCategories)));
         if (category !== "") {
           let categorySorted = newItem.filter((blog: any) => {
             return blog.labels.includes(decodeURIComponent(category))
@@ -49,7 +51,7 @@ const Listing = (props: any) => {
       .catch(err => {
         console.log("Fetch problem: " + err.message);
       });
-  }, [category]);
+  }, [category,setPropsCategories]);
 
   const deleteBlog = (id: string) => {
     var index = state.data.indexOf(state.data.find((item: any) => item.id === id))
@@ -75,10 +77,10 @@ const Listing = (props: any) => {
 
       {(state && state.data.length > 0 ? state.data.map((item: any, index: any) => {
         return (
-          <Link className="default-text" to={"/blog/" + item.id} key={index}>{
+          <React.Fragment key={index}>{
             (index < (offset + 20)) && (index >= offset) &&
             <Blog item={item} key={index} deleteBlog={deleteBlog} />}
-          </Link>
+          </React.Fragment>
         )
       }) : <Loader></Loader>)}
       <div className="pagination-controls">

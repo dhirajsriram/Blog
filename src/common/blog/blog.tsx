@@ -8,12 +8,16 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Moment from "react-moment";
 import { Chip } from "@material-ui/core";
+import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 
-export default function Blog(props: any) {
+const Blog = (props: any) => {
   const useStyles = makeStyles({
     card: {
       marginBottom: "24px"
+    },
+    cardAction :{
+      cursor:"auto"
     },
     author: {
       textAlign:"right",
@@ -54,23 +58,28 @@ export default function Blog(props: any) {
     return labels[0]
   }
 
-  const label = props.page === "description" ? findLabel(blog.labels) : blog.label;
+  const handleCategoryClick = (label:string) =>{
+    props.history.push("/category/" + label)
+  }
+
+  const label:string = props.page === "description" ? findLabel(blog.labels) : blog.label;
 
   return (
     <Card className={classes.card}>
-      <CardActionArea>
+      <CardActionArea className={classes.cardAction}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {blog.title}
           </Typography>
           <Typography gutterBottom className={classes.date} variant="subtitle1" component="h3">
-          <Link className="default-text" to={"/category/" + label}><Chip color="primary" className={classes.chips} label={props.page === "description" ? findLabel(blog.labels) : blog.label}></Chip> </Link><Chip className={classes.chips} label={<Moment format="LL" date={dateToFormat}/>}></Chip> 
+          <Chip color="primary" onClick={(e)=>handleCategoryClick(label)} className={classes.chips} label={label}></Chip> <Chip className={classes.chips} label={<Moment format="LL" date={dateToFormat}/>}></Chip> 
           </Typography>
           <Typography gutterBottom className={classes.date} variant="subtitle1" component="h3" />
+          <Link className="default-text" to={"/blog/" + blog.id}>
           <Typography className={classes.content} variant="body2" color="textSecondary" component="div">
             <div dangerouslySetInnerHTML={{ __html: blog.content }} />
           </Typography>
-          
+          </Link>
         </CardContent>
       </CardActionArea>
       
@@ -85,3 +94,5 @@ export default function Blog(props: any) {
     </Card>
   );
 }
+
+export default withRouter(Blog)

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function TemporaryDrawer(props: any) {
+export default function SideDrawer(props: any) {
   const classes = useStyles();
   const { container } = props;
   const theme = useTheme();
@@ -74,7 +74,7 @@ export default function TemporaryDrawer(props: any) {
           }}
           variant="permanent"
           open>
-          <SideList />
+          <SideList categoryArr={props.categoryArr}/>
         </Drawer>
       </Hidden>
     </div>
