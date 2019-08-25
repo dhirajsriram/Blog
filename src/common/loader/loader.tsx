@@ -16,6 +16,7 @@ export default function Loader() {
   const classes = useStyles();
 
   return (
-      <img className={classes.loader} alt="loader" src={require("../../assets/loader.gif")} />
+    <div className="loader">
+      <img className={classes.loader} alt="loader" src={require("../../assets/loader.gif")} /></div>
   );
 }

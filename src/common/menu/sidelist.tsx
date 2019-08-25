@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import MailIcon from "@material-ui/icons/Mail";
 import { makeStyles } from "@material-ui/styles";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -39,7 +40,7 @@ export default function Sidelist(props: any){
   return(
   <div>
     <div className={classes.toolbar} >
-      <img alt="logo" src={require("../../assets/logo.png")} className={classes.logo}/><Typography className={classes.heading} variant="h5" component="span">Blog</Typography>
+      <Link to="/" className="default-text"> <img alt="logo" src={require("../../assets/logo.png")} className={classes.logo}/><Typography className={classes.heading} variant="h5" component="span">Blog</Typography></Link>
     </div>
     <Divider />
     <List>

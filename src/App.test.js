@@ -4,7 +4,7 @@ import Adapter from "enzyme-adapter-react-16";
 import { MemoryRouter } from "react-router";
 import App from "./App";
 import { mount } from "enzyme";
-import ShippingDetails from "./pages/shippingDetails";
+import ShippingDetails from "./pages/description";
 import Listing from "./pages/listing";
 const FourZeroFour = React.lazy(() => import("./pages/fourzerofour"));
 
