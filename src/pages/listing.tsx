@@ -44,6 +44,10 @@ const Listing = (props: any) => {
           tempCategories.push(blog.labels[0])
           return { ...blog, label: blog.labels[0] }
         })
+        newItem.push(...newblog.map((blog: any, index: any) => {
+          tempCategories.push(blog.labels[0])
+          return { ...blog, label: blog.labels[0] }
+        }))
         setCategories(Array.from(new Set(tempCategories)))
         setPropsCategories(Array.from(new Set(tempCategories)));
 
@@ -53,7 +57,7 @@ const Listing = (props: any) => {
           setData(value, property, newItem)
         }
         else {
-          setState({ data: [...newblog.reverse(),...newItem] })
+          setState({ data: [...newItem.reverse()] })
         }
       })
       .catch(err => {
