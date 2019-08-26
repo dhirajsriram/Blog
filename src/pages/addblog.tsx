@@ -26,20 +26,20 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface State {
-    title: string;
+    title: any;
     date: any;
-    content: string;
-    author:string
+    content: any;
+    author:any
 }
 
 export default function Addblog(props:any) {
     const classes = useStyles();
 
     const [values, setValues] = React.useState<State>({
-        title: '',
+        title: true,
         date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
-        content: '',
-        author:''
+        content: true,
+        author:true
     });
 
     const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,8 +78,10 @@ export default function Addblog(props:any) {
                         <Grid xs={12} md={12} item><TextField
                             id="blog-title"
                             label="Title"
+                            required={true}
+                            error={values.title ? undefined : true}
                             className={classes.textField}
-                            value={values.title}
+                            defaultValue=""
                             onChange={handleChange('title')}
                             margin="normal"
                             variant="outlined"
@@ -102,16 +104,20 @@ export default function Addblog(props:any) {
                             <TextField
                             id="blog-author"
                             label="Author"
+                            error={values.author ? undefined : true}
                             className={classes.textField}
-                            value={values.author}
+                            defaultValue=""
                             onChange={handleChange('author')}
                             margin="normal"
                             variant="outlined"
+                            required={true}
                         /></Grid>
                         <Grid item xs={12} md={12}>
                             <TextField
+                            required
                                 id="blog-content"
                                 label="Content"
+                                error={values.content ? undefined : true}
                                 multiline
                                 rows="10"
                                 defaultValue=""
@@ -122,7 +128,7 @@ export default function Addblog(props:any) {
                             />
                         </Grid>
                         <Grid xs={12} md={12} item>
-                            <Button onClick={handleSubmit} variant="contained" color="primary" className={classes.button}>
+                            <Button disabled={values.author && values.content && values.date && values.title ? undefined : true} onClick={handleSubmit} variant="contained" color="primary" className={classes.button}>
                                 SUBMIT
                             </Button>
                         </Grid>
