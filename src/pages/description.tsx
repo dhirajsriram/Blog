@@ -8,9 +8,18 @@ const Description = (props: any) => {
   const blogApi = useContext(blogContext);
   const url = blogApi.apiUrl;
   const key = blogApi.key;
-
+  const blogId = window.location.pathname.replace("/blog/", "")
+  const newblog = props.newblog
   useEffect(() => {
-    fetch(url + window.location.pathname.replace("/blog/", "") + "?key=" + key)
+    let staticblog = newblog.find((blog:any)=>{
+      return blog.id === blogId
+    })
+    if(staticblog){
+      setBlog(staticblog)
+    }
+    
+    else{
+    fetch(url + blogId + "?key=" + key)
       .then(response => {
         return response.json();
       })
@@ -21,7 +30,8 @@ const Description = (props: any) => {
       .catch(err => {
         console.log("Fetch problem: " + err.message);
       });
-  }, [key, url]);
+    }
+  }, [key, url,blogId,newblog]);
 
   return (
     <React.Fragment>

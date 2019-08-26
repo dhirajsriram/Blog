@@ -19,7 +19,7 @@ type PropsType = RouteComponentProps<PathParamsType> & {
   someString: string,
 }
 
-const initialState = { categoryArr: [], search: "" };
+const initialState = { categoryArr: [], search: "" , newblog:[]};
 type State = Readonly<typeof initialState>;
 class App extends Component<PropsType> {
   readonly state: State = initialState;
@@ -30,6 +30,9 @@ class App extends Component<PropsType> {
   _setSearchTerm = (search: string) => {
     this.props.history.push("/?search=" + search)
     this.setState({ search });
+  }
+  _addBlog = (blog:any) =>{
+    this.setState({ newblog : [...this.state.newblog,blog] })
   }
   render() {
     return (
@@ -43,7 +46,7 @@ class App extends Component<PropsType> {
                   key={route.path}
                   path={route.path}
                   render={(props: any) => (
-                    <route.component search={this.state.search} setCategories={this._setCategories} {...props} />
+                    <route.component newblog={this.state.newblog} addBlog={this._addBlog} search={this.state.search} setCategories={this._setCategories} {...props} />
                   )}
                 />
               ))}

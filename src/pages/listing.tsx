@@ -17,6 +17,7 @@ const Listing = (props: any) => {
   const category: string = window.location.pathname.indexOf("category") > 0 ? window.location.pathname.replace("/category/", "") : "";
   let urlParams = new URLSearchParams(window.location.search);
   const search: any = urlParams.has('search') ? urlParams.get('search') : "";
+  const newblog = props.newblog
   
   const blogApi = useContext(blogContext);
   const url = blogApi.apiUrl + "?labels=GTAC&fetchBodies=true&fetchImages=true&maxResults=500&orderBy=published&key=" + blogApi.key;
@@ -52,13 +53,13 @@ const Listing = (props: any) => {
           setData(value, property, newItem)
         }
         else {
-          setState({ data: newItem })
+          setState({ data: [...newblog.reverse(),...newItem] })
         }
       })
       .catch(err => {
         console.log("Fetch problem: " + err.message);
       });
-  }, [category, search, setPropsCategories, url]);
+  }, [category, search, setPropsCategories, url,newblog]);
 
   const setData = (value: string, property: string, newItem: any) => {
     let categorySorted = newItem.filter((blog: any) => {

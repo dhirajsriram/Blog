@@ -29,14 +29,17 @@ interface State {
     title: string;
     date: any;
     content: string;
+    author:string
 }
 
-export default function Addblog() {
+export default function Addblog(props:any) {
     const classes = useStyles();
+
     const [values, setValues] = React.useState<State>({
         title: '',
         date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
         content: '',
+        author:''
     });
 
     const handleChange = (name: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +53,19 @@ export default function Addblog() {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         e.persist();
-        console.log(values)
+        let blogObj = {
+            "kind": "blogger#post",
+            "id": (Math.floor(Math.random() * (999999999999999999 - 100000000000000000 + 1)) + 100000000000000000).toString(),
+            "published": values.date.toString(),
+            "title": values.title,
+            "content": values.content,
+            "labels":[values.author],
+            "label":[values.author],
+            "author": {
+              "displayName": values.author,
+            },
+          }
+          props.addBlog(blogObj)
     }
 
 
@@ -60,7 +75,7 @@ export default function Addblog() {
                 <form className={classes.container} noValidate autoComplete="off">
                     <Typography variant="h6" component="h6" color="primary">Add Blog</Typography>
                     <Grid container spacing={2}>
-                        <Grid xs={6} md={6} item><TextField
+                        <Grid xs={12} md={12} item><TextField
                             id="blog-title"
                             label="Title"
                             className={classes.textField}
@@ -83,6 +98,16 @@ export default function Addblog() {
                                     onChange={handleDateChange}
                                 /></Grid>
                         </MuiPickersUtilsProvider></Grid>
+                        <Grid item xs={6} md={6}>
+                            <TextField
+                            id="blog-author"
+                            label="Author"
+                            className={classes.textField}
+                            value={values.author}
+                            onChange={handleChange('author')}
+                            margin="normal"
+                            variant="outlined"
+                        /></Grid>
                         <Grid item xs={12} md={12}>
                             <TextField
                                 id="blog-content"
