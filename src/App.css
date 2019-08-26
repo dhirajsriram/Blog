@@ -10,7 +10,7 @@
   }
 }
 
-.listing-page,.blog-details{
+.listing-page,.blog-details,.add-blog-page{
   padding:24px
 }
 
@@ -22,4 +22,10 @@
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+}
+
+.add-blog{
+  position: fixed !important;
+  bottom:15px;
+  right:15px
 }

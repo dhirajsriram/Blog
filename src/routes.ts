@@ -1,6 +1,7 @@
 
 import React from "react";
-import FourZeroFour from "./pages/fourzerofour";
+const FourZeroFour = React.lazy(() => import("./pages/fourzerofour"));
+const Addblog = React.lazy(() => import("./pages/addblog"));
 const Description = React.lazy(() => import("./pages/description"));
 const Listing = React.lazy(() => import("./pages/listing"));
 
@@ -13,15 +14,19 @@ const routes = [
         path: '/category/:id',
         component: Listing
     },
-    {   
+    {
+        path: "/add-blog",
+        component: Addblog
+    },
+    {
         path: '/:id',
-        component : FourZeroFour
+        component: FourZeroFour
     },
     {
         path: '/',
         component: Listing
     },
-    
+
 ]
 
 export default routes;

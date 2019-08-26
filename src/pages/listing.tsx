@@ -4,9 +4,10 @@ import Blog from "../common/blog/blog";
 import Pagination from "material-ui-flat-pagination";
 import Loader from "../common/loader/loader";
 import Dropdown from "../common/dropdown/dropdown";
-import { Grid } from "@material-ui/core";
+import { Grid, Icon, Fab } from "@material-ui/core";
 import Category from "../common/blog/category"
 import { blogContext } from "../common/context/blogcontext";
+import { Link } from "react-router-dom";
 
 const Listing = (props: any) => {
   const [state, setState] = useState();
@@ -104,6 +105,10 @@ const Listing = (props: any) => {
           onClick={(e, offset) => handleClick(offset)}
         />
       </div>
+      <Link to="/add-blog" className="default-text">
+      <Fab aria-label="add-blog" className="add-blog" color="primary">
+            <Icon>add</Icon>
+          </Fab></Link>
     </div>
   );
 };
