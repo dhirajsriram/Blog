@@ -5,7 +5,7 @@ import WarningIcon from "@material-ui/icons/Warning";
 import { makeStyles, Theme, createStyles, IconButton, Icon } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-export default function FourZeroFour(props:any) {
+export default function Errorhandler(props:any) {
   const useStyles = makeStyles((theme: Theme) =>
   {
       return createStyles({
@@ -30,10 +30,10 @@ const classes = useStyles();
       <Typography variant="h3" className={classes.content} gutterBottom align="center">
         <WarningIcon className={classes.warningIcon}/>
         <br />
-        404
+        {props.dataError ? 500 : 404}
       </Typography>
       <Typography variant="subtitle1" component="p" className={classes.content} gutterBottom align="center">
-        The page you are looking for does not exist <br/> Kindly navigate to a valid url using the button below
+      {props.dataError ?  `The page you are looking for does not exist. Kindly navigate to a valid url using the button below` : `Data you are looking for cannot be fetched. Kindly check if you have the right API Key inplace`}
       </Typography><br/>
       <Typography align="center">
       <Link to="/" className="default-text"><IconButton><Icon>home</Icon></IconButton></Link></Typography>

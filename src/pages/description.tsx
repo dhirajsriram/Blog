@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import Loader from "../common/loader/loader";
 import Blog from "../common/blog/blog";
 import { blogContext } from "../common/context/blogcontext";
-import FourZeroFour from "./fourzerofour";
+import Errorhandler from "./errorHandler";
 
 const Description = (props: any) => {
   const [blog, setBlog] = useState();
@@ -43,7 +43,7 @@ const Description = (props: any) => {
         ) : (
             <Loader />
           )}
-      </div> : <FourZeroFour></FourZeroFour>}
+      </div> : <Errorhandler dataError={true}></Errorhandler>}
     </React.Fragment>
   );
 };

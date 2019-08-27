@@ -7,7 +7,7 @@ import { mount } from "enzyme";
 import Addblog from "./pages/addblog"
 import Listing from "./pages/listing";
 import Description from "./page/description"
-const FourZeroFour = React.lazy(() => import("./pages/fourzerofour"));
+const Errorhandler = React.lazy(() => import("./pages/errorHandler"));
 const value = {
   "kind": "blogger#post",
   "id": "111111111111111111",
@@ -23,7 +23,7 @@ const value = {
 configure({ adapter: new Adapter() });
 test("Default route should navigate to listing page", async () => {
   await Listing;
-  await FourZeroFour;
+  await Errorhandler;
   await Addblog;
   const wrapper = await mount(
     <MemoryRouter initialEntries={["/"]}>
@@ -35,7 +35,7 @@ test("Default route should navigate to listing page", async () => {
 
 test("Routes with /add-blog should navigate to add blog form", async () => {
   await Listing;
-  await FourZeroFour;
+  await Errorhandler;
   await Addblog;
   const wrapper = await mount(
     <MemoryRouter initialEntries={["/add-blog"]}>
@@ -47,14 +47,14 @@ test("Routes with /add-blog should navigate to add blog form", async () => {
 
 test("Routers with unknown url should navigate to 404 page", async () => {
   await Listing;
-  await FourZeroFour;
+  await Errorhandler;
   await Addblog;
   const wrapper = await mount(
     <MemoryRouter initialEntries={["/sddsdweq"]}>
       <App />
     </MemoryRouter>
   );
-  expect(wrapper.contains(FourZeroFour)).toBe(true);
+  expect(wrapper.contains(Errorhandler)).toBe(true);
 });
 
 test("Removes an item a blog from listing when delete button is pressed", async () => {
@@ -92,7 +92,7 @@ test("Adds an item to the blog when submitted", async () => {
 
 test("Renders the contents of shipping details page if the props are passed through", async () => {
   await Listing;
-  await FourZeroFour;
+  await Errorhandler;
   await Description;
 
   const wrapper = await mount(

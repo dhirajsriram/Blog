@@ -8,7 +8,7 @@ import { Grid, Icon, Fab } from "@material-ui/core";
 import Category from "../common/blog/category"
 import { blogContext } from "../common/context/blogcontext";
 import { Link } from "react-router-dom";
-import FourZeroFour from "./fourzerofour";
+import Errorhandler from "./errorHandler";
 
 const Listing = (props: any) => {
   const [state, setState] = useState();
@@ -101,7 +101,7 @@ const Listing = (props: any) => {
       <Link to="/add-blog" className="default-text">
         <Fab aria-label="add-blog" className="add-blog" color="primary">
           <Icon>add</Icon>
-        </Fab></Link></React.Fragment> : <FourZeroFour></FourZeroFour>}
+        </Fab></Link></React.Fragment> : <Errorhandler dataError={true}></Errorhandler>}
     </div>
   );
 };
