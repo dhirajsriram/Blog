@@ -3,11 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import MenuIcon from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
-
-import Sidelist from "./sidelist";
 import { Hidden, Theme, createStyles, useTheme } from "@material-ui/core";
-import SideList from "./sidelist";
 
+const SideList = React.lazy(() => import("./sidelist"));
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -64,7 +62,7 @@ export default function SideDrawer(props: any) {
           ModalProps={{
             keepMounted: true // Better open performance on mobile.
           }}>
-          <Sidelist />
+          <SideList categoryArr={props.categoryArr}/>
         </Drawer>
       </Hidden>
       <Hidden xsDown implementation="css">

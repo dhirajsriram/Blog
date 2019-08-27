@@ -8,7 +8,8 @@ import { Grid, Icon, Fab } from "@material-ui/core";
 import Category from "../common/blog/category"
 import { blogContext } from "../common/context/blogcontext";
 import { Link } from "react-router-dom";
-import Errorhandler from "./errorHandler";
+
+const Errorhandler = React.lazy(() => import("./errorHandler"));
 
 const Listing = (props: any) => {
   const [state, setState] = useState();

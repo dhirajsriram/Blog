@@ -2,9 +2,10 @@ import React  from "react";
 import { createStyles, makeStyles, Theme , fade } from '@material-ui/core/styles';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Drawer from "./drawer";
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from "@material-ui/core/InputBase";
+
+const Drawer = React.lazy(() => import("./drawer"));
 
 const drawerWidth = 240;
 

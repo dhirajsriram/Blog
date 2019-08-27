@@ -2,7 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import Loader from "../common/loader/loader";
 import Blog from "../common/blog/blog";
 import { blogContext } from "../common/context/blogcontext";
-import Errorhandler from "./errorHandler";
+
+const Errorhandler = React.lazy(() => import("./errorHandler"));
 
 const Description = (props: any) => {
   const [blog, setBlog] = useState();
