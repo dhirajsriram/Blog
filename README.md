@@ -16,7 +16,6 @@ Kindly do an npm install at the root directory of both the applications to insta
 ```
 npm install 
 ```
-
 ## Serving Locally
 
 Once the packages have been installed you may serve both the applications locally using `npm start` on the root directory of the application. Following is the port the application runs on
