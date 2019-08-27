@@ -26,10 +26,7 @@ const Listing = (props: any) => {
   useEffect(() => {
     const tempCategories: any[] = []
     setState({ data: [] })
-    fetch(url)
-      .then(response => {
-        return response.json();
-      })
+    fetch(url).then(response => {return response.json();})
       .then(response => {
         let blogs = response.items;
         let newItem = blogs.map((blog: any, index: any) => {

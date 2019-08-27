@@ -16,8 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-
-
 const Category = (props:any) => {
   const classes = useStyles();
 
