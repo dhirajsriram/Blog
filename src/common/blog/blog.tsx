@@ -84,7 +84,7 @@ const Blog = (props: any) => {
       </CardActionArea>
       
       <CardActions>
-        <Button size="small" color="primary" onClick={()=>props.deleteBlog(blog.id)}>
+        <Button size="small" className="delete-button" color="primary" onClick={()=>props.deleteBlog(blog.id)}>
           Delete
         </Button>
         <Typography gutterBottom className={classes.author} variant="subtitle1" component="h3">

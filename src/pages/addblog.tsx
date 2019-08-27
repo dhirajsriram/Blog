@@ -8,8 +8,6 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import { withRouter } from 'react-router';
 
-
-
 interface State {
     title: any;
     date: any;
@@ -19,7 +17,6 @@ interface State {
 }
 
 const Addblog = (props: any) => {
-
 
     const [values, setValues] = React.useState<State>({
         title: true,
@@ -44,6 +41,14 @@ const Addblog = (props: any) => {
             },
             date: {
                 width: "100%"
+            },
+            success:{
+                paddingTop:"10%",
+                paddingBottom:"10%",
+            },
+            successMsg :{
+                marginTop:"20px",
+                fontWeight:100
             },
             textField: {
                 width: "100%",
@@ -148,8 +153,9 @@ const Addblog = (props: any) => {
                             </Grid>
                         </Grid>
                     </form> :
-                    <Typography align="center">
+                    <Typography align="center" className={classes.success}>
                         <img src={require("../assets/checkmark.gif")} alt="checkmark-gif" />
+                        <Typography className={classes.successMsg} variant="h5" component="h5">Blog added, Redirecting to home page</Typography>
                     </Typography>}</Paper></div>
     );
 }

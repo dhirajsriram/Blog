@@ -45,7 +45,7 @@ export default function Sidelist(props: any) {
       {props.categoryArr && props.categoryArr.length > 0 && <Divider />}
       <List>
         {props.categoryArr && props.categoryArr.map((category: string, index: any) => (
-          <React.Fragment>{category !== "GTAC" && <Link key={index} className="default-text" to={"/category/" + category}>
+          <React.Fragment key={index} >{category !== "GTAC" && <Link className="default-text" to={"/category/" + category}>
             <ListItem button>
               <ListItemIcon><Icon>person</Icon></ListItemIcon>
               <ListItemText primary={category} />

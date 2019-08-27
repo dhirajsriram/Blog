@@ -18,15 +18,15 @@ const Listing = (props: any) => {
   let urlParams = new URLSearchParams(window.location.search);
   const search: any = urlParams.has('search') ? urlParams.get('search') : "";
   const newblog = props.newblog
-  
+
   const blogApi = useContext(blogContext);
   const url = blogApi.apiUrl + "?labels=GTAC&fetchBodies=true&fetchImages=true&maxResults=500&orderBy=published&key=" + blogApi.key;
   let setPropsCategories = props.setCategories
-  
+
   useEffect(() => {
     const tempCategories: any[] = []
     setState({ data: [] })
-    fetch(url).then(response => {return response.json();})
+    fetch(url).then(response => { return response.json(); })
       .then(response => {
         let blogs = response.items;
         let newItem = blogs.map((blog: any, index: any) => {
@@ -47,7 +47,6 @@ const Listing = (props: any) => {
         }))
         setCategories(Array.from(new Set(tempCategories)))
         setPropsCategories(Array.from(new Set(tempCategories)));
-
         if (category || search) {
           let value = category ? category : search
           let property = category ? "labels" : "title"
@@ -60,7 +59,7 @@ const Listing = (props: any) => {
       .catch(err => {
         console.log("Fetch problem: " + err.message);
       });
-  }, [category, search, setPropsCategories, url,newblog]);
+  }, [category, search, setPropsCategories, url, newblog]);
 
   const setData = (value: string, property: string, newItem: any) => {
     let categorySorted = newItem.filter((blog: any) => {
@@ -82,15 +81,10 @@ const Listing = (props: any) => {
 
   return (
     <div className="listing-page">
-      <Grid container
-        direction="row"
-        justify="space-between"
-        alignItems="flex-start"
-      >
+      <Grid container direction="row" justify="space-between" alignItems="flex-start">
         <Grid item xs={6} md={6}>{category && <Category category={category}></Category>}</Grid>
         <Grid item xs={6} md={6}><Dropdown category={category} categories={categories} /></Grid>
       </Grid>
-
       {(state && state.data.length > 0 ? state.data.map((item: any, index: any) => {
         return (
           <React.Fragment key={index}>{
@@ -100,17 +94,12 @@ const Listing = (props: any) => {
         )
       }) : <Loader></Loader>)}
       <div className="pagination-controls">
-        <Pagination
-          limit={20}
-          offset={offset}
-          total={state ? state.data.length : 0}
-          onClick={(e, offset) => handleClick(offset)}
-        />
+        <Pagination limit={20} offset={offset} total={state ? state.data.length : 0} onClick={(e, offset) => handleClick(offset)} />
       </div>
       <Link to="/add-blog" className="default-text">
-      <Fab aria-label="add-blog" className="add-blog" color="primary">
-            <Icon>add</Icon>
-          </Fab></Link>
+        <Fab aria-label="add-blog" className="add-blog" color="primary">
+          <Icon>add</Icon>
+        </Fab></Link>
     </div>
   );
 };

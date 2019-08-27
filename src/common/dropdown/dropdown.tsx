@@ -11,11 +11,11 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: 'flex',
       flexWrap: 'wrap',
-      float:"right"
+      float: "right"
     },
     formControl: {
       minWidth: 150,
-      marginBottom:24,
+      marginBottom: 24,
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -23,15 +23,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const Dropdown = (props:any) => {
+const Dropdown = (props: any) => {
   const classes = useStyles();
   const [values, setValues] = React.useState({
     author: "",
   });
   let category = decodeURIComponent(props.category)
-  useEffect(()=>{
-    setValues({author:category})
-  },[category])
+  useEffect(() => {
+    setValues({ author: category })
+  }, [category])
 
   function handleChange(event: React.ChangeEvent<{ name?: string; value: unknown }>) {
     setValues(oldValues => ({
@@ -53,9 +53,11 @@ const Dropdown = (props:any) => {
             id: 'author',
           }}
         >
-           {props.categories.map((category: string, index: any) => {
-          return <MenuItem key={index} value={category}>{category}</MenuItem>
-        })}
+          {props.categories.map((category: string, index: any) => {
+            if (category !== "GTAC")
+              return <MenuItem key={index} value={category}>{category}</MenuItem>
+            return ""
+          })}
         </Select>
       </FormControl>
     </form>
