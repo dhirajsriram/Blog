@@ -8,6 +8,7 @@ import { Grid, Icon, Fab } from "@material-ui/core";
 import Category from "../common/blog/category"
 import { blogContext } from "../common/context/blogcontext";
 import { Link } from "react-router-dom";
+import FourZeroFour from "./fourzerofour";
 
 const Listing = (props: any) => {
   const [state, setState] = useState();
@@ -57,7 +58,7 @@ const Listing = (props: any) => {
         }
       })
       .catch(err => {
-        console.log("Fetch problem: " + err.message);
+        setState({ error : true})
       });
   }, [category, search, setPropsCategories, url, newblog]);
 
@@ -81,6 +82,7 @@ const Listing = (props: any) => {
 
   return (
     <div className="listing-page">
+      {state && !state.error ? <React.Fragment>
       <Grid container direction="row" justify="space-between" alignItems="flex-start">
         <Grid item xs={6} md={6}>{category && <Category category={category}></Category>}</Grid>
         <Grid item xs={6} md={6}><Dropdown category={category} categories={categories} /></Grid>
@@ -99,7 +101,7 @@ const Listing = (props: any) => {
       <Link to="/add-blog" className="default-text">
         <Fab aria-label="add-blog" className="add-blog" color="primary">
           <Icon>add</Icon>
-        </Fab></Link>
+        </Fab></Link></React.Fragment> : <FourZeroFour></FourZeroFour>}
     </div>
   );
 };
