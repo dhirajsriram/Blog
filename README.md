@@ -32,7 +32,7 @@ Once the packages have been installed you may serve both the applications locall
 ## Architecture
 
 A high level architecture of the application can be found below
-<p align="center"><img src="/blog.png"></p>
+<p align="center"><img src="/Blog.png"></p>
 
 ### Code Splitting
 
